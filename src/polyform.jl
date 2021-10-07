@@ -479,3 +479,20 @@ function rm_gcds(ns, ds)
 
     ns,ds
 end
+
+
+###
+# NEW FUNCTIONS
+###
+
+expand_fraction(expr::Div) = expr.num isa Add ? sum([arg / expr.den for arg in arguments(expr.num)]) : expr
+expand_fraction(expr) = expr
+
+expand_all(x) = Postwalk(expand ∘ expand_fraction)(x)
+
+
+
+
+
+
+
